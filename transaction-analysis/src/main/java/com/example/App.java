@@ -37,18 +37,19 @@ public static void displayDataShowcase(List<Transaction> list) {
         System.out.println("====================================================");
         
         // Print headers
-        System.out.printf("%-12s | %-12s | %-8s | %-8s | %-10s%n", 
-                          "ID", "REF", "AMOUNT", "CURR", "STATUS");
+        System.out.printf("%-12s | %-12s | %-8s | %-8s | %-10s%n | %-20s |", 
+                          "ID", "REF", "AMOUNT", "CURR", "STATUS", "CREATED_AT_UTC" + "\n");
         System.out.println("----------------------------------------------------");
 
         // Display each record
         for (Transaction tx : list) {
-            System.out.printf("%-12s | %-12s | %-8.2f | %-8s | %-10s%n",
+            System.out.printf("%-12s | %-12s | %-8.2f | %-8s | %-10s%n | %-20s |\n",
                 tx.getTransactionId(),
                 tx.getMerchantRef(),
                 tx.getAmount() != null ? tx.getAmount() : 0.0,
                 tx.getCurrency(),
-                tx.getStatus());
+                tx.getStatus(),
+                tx.getCreatedAtUtc());
         }
         System.out.println("====================================================");
     }
