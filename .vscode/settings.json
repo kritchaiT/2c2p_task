@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "transaction-process-logic/src/main/java/com/example",
+        "transaction-analysis/src/main/java/com/example"
+    ],
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ]
+}

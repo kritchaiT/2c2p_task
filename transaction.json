@@ -1,0 +1,80 @@
+[
+  {
+    "transactionId": "TXN-001",
+    "merchantRef": "REF-A",
+    "amount": 100.50,
+    "currency": "USD",
+    "status": "SUCCESS",
+    "createdAtUtc": "2023-10-01T10:00:00Z"
+  },
+  {
+    "transactionId": "TXN-002",
+    "merchantRef": "REF-B",
+    "amount": 50.00,
+    "currency": "EUR",
+    "status": "FAILED",
+    "createdAtUtc": "2023-10-01T11:00:00Z"
+  },
+  {
+    "transactionId": "TXN-003",
+    "merchantRef": "REF-C",
+    "amount": -10.00,
+    "currency": "GBP",
+    "status": "SUCCESS",
+    "createdAtUtc": "2023-10-01T12:00:00Z"
+  },
+  {
+    "transactionId": "TXN-004",
+    "merchantRef": "REF-D",
+    "amount": 25.00,
+    "currency": "USDT",
+    "status": "SUCCESS",
+    "createdAtUtc": "2023-10-01T13:00:00Z"
+  },
+  {
+    "transactionId": "TXN-005",
+    "merchantRef": "REF-E",
+    "amount": 75.00,
+    "currency": "CAD",
+    "status": "COMPLETED",
+    "createdAtUtc": "2023-10-01T14:00:00Z"
+  },
+  {
+    "transactionId": "TXN-006",
+    "merchantRef": "REF-F",
+    "amount": 15.00,
+    "currency": "JPY",
+    "status": "PENDING",
+    "createdAtUtc": "2023-13-01T15:00:00Z"
+  },
+  {
+    "transactionId": "TXN-007",
+    "merchantRef": "REF-G",
+    "amount": 10.00,
+    "currency": "AUD"
+  },
+  {
+    "transactionId": "TXN-001",
+    "merchantRef": "REF-A",
+    "amount": 100.50,
+    "currency": "USD",
+    "status": "SUCCESS",
+    "createdAtUtc": "2023-10-01T10:00:00Z"
+  },
+  {
+    "transactionId": "TXN-008",
+    "merchantRef": "DUP-REF",
+    "amount": 200.00,
+    "currency": "USD",
+    "status": "SUCCESS",
+    "createdAtUtc": "2023-10-02T09:00:00Z"
+  },
+  {
+    "transactionId": "TXN-009",
+    "merchantRef": "DUP-REF",
+    "amount": 200.00,
+    "currency": "USD",
+    "status": "SUCCESS",
+    "createdAtUtc": "2023-10-02T15:30:00Z"
+  }
+]
