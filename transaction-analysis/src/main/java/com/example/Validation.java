@@ -1,7 +1,13 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Validation {
 
+    // to add return reason of rejection
     public static boolean isValidTransaction(Transaction tx) {
         // input validation checks
 
@@ -38,5 +44,27 @@ public class Validation {
         }
 
         return true;
+    }
+
+    // Method to validate transactions -> using Map to conatin valid and invalid transactions
+    public static Map<String, List<Transaction>> validateTransactions(List<Transaction> rawTxn) {
+        List<Transaction> validTxn = new ArrayList<>();
+        List<Transaction> invalidTxn = new ArrayList<>();
+
+        for (Transaction tx : rawTxn) {
+            // check validity using the Validation class
+            if (Validation.isValidTransaction(tx)) {
+                validTxn.add(tx);
+            } else {
+                invalidTxn.add(tx);
+            }
+        }
+
+        // using hashmap to store valid and invalid transactions
+        Map<String, List<Transaction>> result = new HashMap<>();
+        result.put("valid", validTxn);
+        result.put("invalid", invalidTxn);
+
+        return result;
     }
 }
