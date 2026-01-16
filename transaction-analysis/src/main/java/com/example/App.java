@@ -3,6 +3,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class App 
@@ -13,21 +14,26 @@ public class App
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
         String filePath = "transaction.json"; // identify path file for input
 
+        List<Transaction> transactions = null; // ✅ declared here
+
         try {
             // Jackson Object Mapper
             ObjectMapper mapper = new ObjectMapper();
 
             // Load and Parse the JSON file into a List of Transaction objects
             // identify List named "transactions" -> for easy usage
-            List<Transaction> transactions = mapper.readValue(
-                new File(filePath), // file path
-                new TypeReference<List<Transaction>>() {} // using the List<Transaction> type
+            transactions = mapper.readValue(
+            new File(filePath),
+            new TypeReference<List<Transaction>>() {}
             );
+            
             displayDataShowcase(transactions);
 
         } catch (IOException e) {
             System.err.println("Error reading the JSON file: " + e.getMessage());
         }
+
+        validateTransactions(transactions);
     }
 
 // Method to display data showcase
@@ -57,15 +63,19 @@ public class App
 
     // Method to validate transactions
     public static void validateTransactions(List<Transaction> list) {
-        // run thru each transaction and validate
-        for (Transaction tx : list) {
-            boolean isValid = validation.isValidTransaction(tx); // check validity in validation class
-            if (!isValid) {
-                System.out.println("Invalid transaction found: " + tx);
 
-                // to be: log, flag, or handle invalid transactions accordingly
+    List<Transaction> validTxns = new ArrayList<>();
+    List<Transaction> invalidTxns = new ArrayList<>();
 
-            }
+    for (Transaction tx : list) {
+        if (Validation.isValidTransaction(tx)) {
+            validTxns.add(tx);
+        } else {
+            System.out.println("Invalid transaction found: " + tx);
+            invalidTxns.add(tx);
         }
     }
+}
+
+
 }

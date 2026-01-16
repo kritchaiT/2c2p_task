@@ -1,7 +1,7 @@
 package com.example;
 
 public class Transaction {
-    
+
     private String transactionId;
     private String merchantRef;
     private Double amount;
@@ -9,8 +9,8 @@ public class Transaction {
     private String status;
     private String createdAtUtc;
 
-    private int flagDup = 0; // default 0 -> not-duplicate, 1 -> duplicated
-    private int flagIncompleted = 0; // default 0 -> completed, 1 -> incompleted
+    private int flagDup = 0;
+    private int flagIncompleted = 0;
 
     // Getters
     public String getTransactionId() { return transactionId; }
@@ -19,10 +19,10 @@ public class Transaction {
     public String getCurrency() { return currency; }
     public String getStatus() { return status; }
     public String getCreatedAtUtc() { return createdAtUtc; }
-    public int getFlagDup() {return flagDup; }
-    public int getFlagIncompleted() {return flagIncompleted; }
+    public int getFlagDup() { return flagDup; }
+    public int getFlagIncompleted() { return flagIncompleted; }
 
-    // Setters -> for Jackson to map JSON properties
+    // Setters
     public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
     public void setMerchantRef(String merchantRef) { this.merchantRef = merchantRef; }
     public void setAmount(Double amount) { this.amount = amount; }
@@ -30,16 +30,17 @@ public class Transaction {
     public void setStatus(String status) { this.status = status; }
     public void setCreatedAtUtc(String createdAtUtc) { this.createdAtUtc = createdAtUtc; }
 
-    @Override
-    public String toString() {
-        return String.format("[%s] %s: %.2f %s (%s)", 
-            createdAtUtc, transactionId, amount, currency, status);
+    public void flagDuplicate() {
+        this.flagDup = 1;
     }
 
-    public void doFlagDup(int inflag) {
-        this.flagDup = inflag;
+    public void flagIncomplete() {
+        this.flagIncompleted = 1;
     }
-    public void doFlagIncompleted(int inflag) {
-        this.flagIncompleted = inflag;
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s: %.2f %s (%s)",
+                createdAtUtc, transactionId, amount, currency, status);
     }
 }
