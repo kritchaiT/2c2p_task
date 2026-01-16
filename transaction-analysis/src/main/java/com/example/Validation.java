@@ -3,6 +3,7 @@ package com.example;
 public class Validation {
 
     public static boolean isValidTransaction(Transaction tx) {
+        // input validation checks
 
         if (tx.getTransactionId() == null || tx.getTransactionId().isEmpty()) {
             tx.flagIncomplete();

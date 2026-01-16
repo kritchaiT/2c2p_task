@@ -73,22 +73,23 @@ public class App
 
     // Method to validate transactions -> using Map to conatin valid and invalid transactions
     public static Map<String, List<Transaction>> validateTransactions(List<Transaction> rawTxn) {
-    List<Transaction> validTxns = new ArrayList<>();
-    List<Transaction> invalidTxns = new ArrayList<>();
+    List<Transaction> validTxn = new ArrayList<>();
+    List<Transaction> invalidTxn = new ArrayList<>();
 
     for (Transaction tx : rawTxn) {
+        // check validity using the Validation class
         if (Validation.isValidTransaction(tx)) {
-            validTxns.add(tx);
+            validTxn.add(tx);
         } else {
-            invalidTxns.add(tx);
+            invalidTxn.add(tx);
         }
     }
 
     // using hashmap to store valid and invalid transactions
     Map<String, List<Transaction>> result = new HashMap<>();
-    result.put("valid", validTxns);
-    result.put("invalid", invalidTxns);
-    
+    result.put("valid", validTxn);
+    result.put("invalid", invalidTxn);
+
     return result;
 }
 }
