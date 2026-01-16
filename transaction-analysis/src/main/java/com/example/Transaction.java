@@ -1,4 +1,5 @@
 public class Transaction {
+    
     private String transactionId;
     private String merchantRef;
     private Double amount;

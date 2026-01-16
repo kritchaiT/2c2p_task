@@ -29,8 +29,8 @@ public class App
         }
     }
 
-// Method to rewrite
-public static void displayDataShowcase(List<Transaction> list) {
+// Method to display data showcase
+    public static void displayDataShowcase(List<Transaction> list) {
         System.out.println("====================================================");
         System.out.println("TRANSACTION DATA LOAD SUCCESSFUL");
         System.out.println("Total Records Found: " + list.size());
@@ -52,5 +52,19 @@ public static void displayDataShowcase(List<Transaction> list) {
                 tx.getCreatedAtUtc());
         }
         System.out.println("====================================================");
+    }
+
+    // Method to validate transactions
+    public static void validateTransactions(List<Transaction> list) {
+        // run thru each transaction and validate
+        for (Transaction tx : list) {
+            boolean isValid = validation.isValidTransaction(tx); // check validity in validation class
+            if (!isValid) {
+                System.out.println("Invalid transaction found: " + tx);
+
+                // to be: log, flag, or handle invalid transactions accordingly
+
+            }
+        }
     }
 }
