@@ -1,3 +1,5 @@
+package com.example;
+
 public class validation {
     public static boolean isValidTransaction(Transaction tx) {
         // if any logic was wrong -> return false
