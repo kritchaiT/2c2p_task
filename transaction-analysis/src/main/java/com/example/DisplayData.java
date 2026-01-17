@@ -1,7 +1,7 @@
 package com.example;
-
 import java.util.List;
 
+// Class to display data in tabular format
 public class DisplayData {
     public static void displayData(List<Transaction> list) {
         System.out.println("====================================================");

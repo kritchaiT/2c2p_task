@@ -18,7 +18,6 @@ public class App
 
         // identify path file for input
         String filePath = "transaction.json";
-
         List<Transaction> transactions = null;
 
         try {
@@ -51,6 +50,10 @@ public class App
 
         DisplayData.displayData(result.get("valid"));
         DisplayData.displayData(result.get("invalid"));
+
+        // test printing the first invalid transaction
+        Transaction firstBad = result.get("invalid").get(0);
+        System.out.println(firstBad.toString());
 
     }
 }

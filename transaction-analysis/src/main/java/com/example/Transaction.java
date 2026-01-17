@@ -31,16 +31,17 @@ public class Transaction {
     public void setCreatedAtUtc(String createdAtUtc) { this.createdAtUtc = createdAtUtc; }
 
     public void flagDuplicate() {
-        this.flagDup = 1;
+        this.flagDup = 0;
     }
 
     public void flagIncomplete() {
-        this.flagIncompleted = 1;
+        this.flagIncompleted = 0;
     }
 
+    // mimicing the printout of object --> for debugging purposes
     @Override
     public String toString() {
-        return String.format("[%s] %s: %.2f %s (%s)",
-                createdAtUtc, transactionId, amount, currency, status);
+        return String.format("[%s] %s: %.2f %s (%s) - %d - %d",
+                createdAtUtc, transactionId, amount, currency, status, flagDup, flagIncompleted);
     }
 }
