@@ -9,6 +9,7 @@ public class Transaction {
     private String status;
     private String createdAtUtc;
 
+    // initialize flags
     private int flagDup = 0;
     private int flagIncompleted = 0;
 
@@ -31,11 +32,11 @@ public class Transaction {
     public void setCreatedAtUtc(String createdAtUtc) { this.createdAtUtc = createdAtUtc; }
 
     public void flagDuplicate() {
-        this.flagDup = 0;
+        this.flagDup = 1;
     }
 
     public void flagIncomplete() {
-        this.flagIncompleted = 0;
+        this.flagIncompleted = 1;
     }
 
     // mimicing the printout of object --> for debugging purposes
@@ -43,5 +44,14 @@ public class Transaction {
     public String toString() {
         return String.format("[%s] %s: %.2f %s (%s) - %d - %d",
                 createdAtUtc, transactionId, amount, currency, status, flagDup, flagIncompleted);
+    }
+
+    public boolean isEmpty() {
+        return (transactionId == null || transactionId.isEmpty()) &&
+               (merchantRef == null || merchantRef.isEmpty()) &&
+               (amount == null) &&
+               (currency == null || currency.isEmpty()) &&
+               (status == null || status.isEmpty()) &&
+               (createdAtUtc == null || createdAtUtc.isEmpty());
     }
 }
