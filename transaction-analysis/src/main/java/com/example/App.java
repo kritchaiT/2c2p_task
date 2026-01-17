@@ -7,53 +7,67 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class App 
 {
     public static void main( String[] args )
     {
-        // check working directory
-        System.out.println( "Hello World!" );
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+    //     // check working directory
+    //     System.out.println( "Hello World!" );
+    //     System.out.println("Working Directory = " + System.getProperty("user.dir"));
 
-        // identify path file for input
-        String filePath = "transaction.json";
-        List<Transaction> transactions = null;
+    //     // identify path file for input
+    //     String filePath = "transaction.json";
+    //     List<Transaction> transactions = null;
 
-        try {
-            // ***Jackson Object Mapper***
-            ObjectMapper mapper = new ObjectMapper();
+    //     try {
+    //         // ***Jackson Object Mapper***
+    //         ObjectMapper mapper = new ObjectMapper();
 
-            // Load and Parse the JSON file into a List of Transaction objects
-            // identify List named "transactions" -> for easy usage
-            transactions = mapper.readValue(
-            new File(filePath),
-            new TypeReference<List<Transaction>>() {}
-            );
+    //         // Load and Parse the JSON file into a List of Transaction objects
+    //         // identify List named "transactions" -> for easy usage
+    //         transactions = mapper.readValue(
+    //         new File(filePath),
+    //         new TypeReference<List<Transaction>>() {}
+    //         );
 
-            // Display data
-            DisplayData.displayData(transactions);
+    //         // Display data
+    //         DisplayData.displayData(transactions);
 
-        } catch (IOException e) {
-            System.err.println("Error reading the JSON file: " + e.getMessage());
+    //     } catch (IOException e) {
+    //         System.err.println("Error reading the JSON file: " + e.getMessage());
+    //     }
+
+    //     // Call the method and store it in a Map
+    //     Map<String, List<Transaction>> result = Validation.validateTransactions(transactions);
+
+    //     // Access the lists using the .get() method and the keys "valid" and "invalid"
+    //     int validCount = result.get("valid").size();
+    //     int invalidCount = result.get("invalid").size();
+
+    //     System.out.println("Valid count: " + validCount);
+    //     System.out.println("Invalid count: " + invalidCount);
+
+    //     DisplayData.displayData(result.get("valid"));
+    //     DisplayData.displayData(result.get("invalid"));
+
+    //     // test printing the first invalid transaction
+    //     Transaction firstBad = result.get("invalid").get(0);
+    //     System.out.println(firstBad.toString());
+
+    // }
+    InterfaceManager.startInterface();
+
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        while (running) {
+            System.out.print("> ");
+            String input = scanner.nextLine();
+            running = InterfaceManager.handleCommand(input);
         }
 
-        // Call the method and store it in a Map
-        Map<String, List<Transaction>> result = Validation.validateTransactions(transactions);
-
-        // Access the lists using the .get() method and the keys "valid" and "invalid"
-        int validCount = result.get("valid").size();
-        int invalidCount = result.get("invalid").size();
-
-        System.out.println("Valid count: " + validCount);
-        System.out.println("Invalid count: " + invalidCount);
-
-        DisplayData.displayData(result.get("valid"));
-        DisplayData.displayData(result.get("invalid"));
-
-        // test printing the first invalid transaction
-        Transaction firstBad = result.get("invalid").get(0);
-        System.out.println(firstBad.toString());
-
+        scanner.close();
     }
 }
