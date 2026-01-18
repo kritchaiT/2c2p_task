@@ -57,6 +57,7 @@ public class App
     //     System.out.println(firstBad.toString());
 
     // }
+
     InterfaceManager.startInterface();
 
         Scanner scanner = new Scanner(System.in);

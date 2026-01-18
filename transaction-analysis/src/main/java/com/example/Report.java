@@ -5,34 +5,62 @@ import java.util.Map;
 
 public class Report {
 
-    // Overall counts
+    // ---------------- Overall record counts ----------------
+
+    /** Total records loaded from input */
     public int totalRecords;
+
+    /** Records that passed validation */
     public int validRecords;
+
+    /** Records that failed validation */
     public int invalidRecords;
 
-    // Validation
+    /** Invalid records breakdown by rejection reason */
     public Map<String, Integer> invalidBreakdown;
 
-    // Applied (idempotent) SUCCESS only
-    public int successAppliedRecords;
+    // ---------------- Status summary ----------------
 
-    // Status summary (usually only SUCCESS)
+    /**
+     * Counts by status for VALID records only
+     * Example: SUCCESS=10, FAILED=3, PENDING=2
+     */
     public Map<String, Integer> statusCounts;
 
-    // SUCCESS amount statistics
+    // ---------------- SUCCESS statistics ----------------
+
+    /**
+     * Min / Max / Avg amount
+     * Computed from VALID + SUCCESS + NON-DUPLICATE transactions only
+     */
     public AmountStats successAmountStats;
 
-    // Duplicate section
-    public DuplicateSection duplicates;
+    // ---------------- Duplicate summary ----------------
 
-    // ----------------------------------------------------
+    public DuplicateSummary duplicates;
 
-    public static class DuplicateSection {
+    // ====================================================
+    // Inner classes
+    // ====================================================
+
+    public static class DuplicateSummary {
+
+        /** Number of duplicate groups detected */
         public int duplicateGroupCount;
+
+        /** Total number of records involved in duplicates */
+        public int duplicateRecordCount;
+
+        /** Detailed duplicate groups */
         public List<DuplicateGroup> groups;
 
-        public DuplicateSection(int count, List<DuplicateGroup> groups) {
-            this.duplicateGroupCount = count;
+        public DuplicateSummary(
+                int duplicateGroupCount,
+                int duplicateRecordCount,
+                List<DuplicateGroup> groups
+        ) {
+            this.duplicateGroupCount = duplicateGroupCount;
+            this.duplicateRecordCount = duplicateRecordCount;
             this.groups = groups;
         }
     }

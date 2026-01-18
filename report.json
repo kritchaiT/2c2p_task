@@ -5,7 +5,6 @@
   "invalidBreakdown" : {
     "UNKNOWN" : 7
   },
-  "successAppliedRecords" : 9,
   "statusCounts" : {
     "SUCCESS" : 9
   },
@@ -16,6 +15,7 @@
   },
   "duplicates" : {
     "duplicateGroupCount" : 8,
+    "duplicateRecordCount" : 16,
     "groups" : [ {
       "rule" : "Duplicated MERCHANT_AMOUNT_DAY",
       "key" : "TXN-009",

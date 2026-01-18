@@ -1,12 +1,12 @@
 package com.example;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class InterfaceManager {
 
@@ -14,7 +14,7 @@ public class InterfaceManager {
     private static Map<String, List<Transaction>> validationResult = new HashMap<>();
 
     // =====================================================
-    // ENTRY
+    // ENTRY POINT
     // =====================================================
 
     public static void startInterface() {
@@ -25,9 +25,11 @@ public class InterfaceManager {
     }
 
     public static boolean handleCommand(String input) {
+        if (input == null || input.isBlank()) {
+            return true;
+        }
 
         String[] args = input.trim().split("\\s+");
-        if (args.length == 0) return true;
 
         switch (args[0].toLowerCase()) {
 
@@ -89,13 +91,13 @@ public class InterfaceManager {
 
             case "valid":
                 DisplayData.displayData(
-                        validationResult.getOrDefault("valid", List.of())
+                        validationResult.getOrDefault("valid", Collections.emptyList())
                 );
                 break;
 
             case "invalid":
                 DisplayData.displayData(
-                        validationResult.getOrDefault("invalid", List.of())
+                        validationResult.getOrDefault("invalid", Collections.emptyList())
                 );
                 break;
 
@@ -103,7 +105,7 @@ public class InterfaceManager {
                 DuplicationIden.identifyDup(transactions);
                 DisplayData.displayDupData(
                         transactions.stream()
-                                .filter(t -> t.getFlagDup() == 1)
+                                .filter(tx -> tx.getFlagDup() == 1)
                                 .collect(Collectors.toList())
                 );
                 break;
@@ -129,8 +131,7 @@ public class InterfaceManager {
                     new TypeReference<List<Transaction>>() {}
             );
 
-            validationResult =
-                    Validation.validateTransactions(transactions);
+            validationResult = Validation.validateTransactions(transactions);
 
             System.out.println("Loaded " + transactions.size() + " transactions.");
 
@@ -148,11 +149,11 @@ public class InterfaceManager {
         System.out.println("Generating report...");
 
         List<Transaction> valid =
-                validationResult.getOrDefault("valid", List.of());
+                validationResult.getOrDefault("valid", Collections.emptyList());
         List<Transaction> invalid =
-                validationResult.getOrDefault("invalid", List.of());
+                validationResult.getOrDefault("invalid", Collections.emptyList());
 
-        // Detect duplicates only on VALID records
+        // Detect duplicates on VALID records only
         DuplicationIden.identifyDup(valid);
 
         // ---------- INVALID BREAKDOWN ----------
@@ -162,19 +163,14 @@ public class InterfaceManager {
             if (reason == null || reason.isBlank()) {
                 reason = "UNKNOWN";
             }
-            invalidBreakdown.put(
-                    reason,
-                    invalidBreakdown.getOrDefault(reason, 0) + 1
-            );
+            invalidBreakdown.put(reason, invalidBreakdown.getOrDefault(reason, 0) + 1);
         }
 
         // ---------- DUPLICATE GROUPS ----------
-        List<DuplicateGroup> duplicateGroups =
-                buildDuplicateGroups(valid);
+        List<DuplicateGroup> duplicateGroups = buildDuplicateGroups(valid);
 
         // ---------- SUCCESS + IDEMPOTENT ----------
-        List<Transaction> reportTxs =
-                buildReportTransactions(valid);
+        List<Transaction> reportTxs = buildReportTransactions(valid);
 
         // ---------- STATUS COUNTS ----------
         Map<String, Integer> statusCounts = new HashMap<>();
@@ -185,16 +181,19 @@ public class InterfaceManager {
                 .map(Transaction::getAmount)
                 .collect(Collectors.toList());
 
-        AmountStats stats = amounts.isEmpty()
-                ? new AmountStats(0, 0, 0)
-                : new AmountStats(
-                        Collections.min(amounts),
-                        Collections.max(amounts),
-                        amounts.stream()
-                                .mapToDouble(Double::doubleValue)
-                                .average()
-                                .orElse(0)
-                );
+        AmountStats stats;
+        if (amounts.isEmpty()) {
+            stats = new AmountStats(0, 0, 0);
+        } else {
+            stats = new AmountStats(
+                    Collections.min(amounts),
+                    Collections.max(amounts),
+                    amounts.stream()
+                            .mapToDouble(Double::doubleValue)
+                            .average()
+                            .orElse(0)
+            );
+        }
 
         // ---------- BUILD REPORT ----------
         Report report = new Report();
@@ -202,11 +201,13 @@ public class InterfaceManager {
         report.validRecords = valid.size();
         report.invalidRecords = invalid.size();
         report.invalidBreakdown = invalidBreakdown;
-        report.successAppliedRecords = reportTxs.size();
         report.statusCounts = statusCounts;
         report.successAmountStats = stats;
-        report.duplicates = new Report.DuplicateSection(
+        report.duplicates = new Report.DuplicateSummary(
                 duplicateGroups.size(),
+                duplicateGroups.stream()
+                        .mapToInt(group -> group.transactions.size())
+                        .sum(),
                 duplicateGroups
         );
 
@@ -230,52 +231,41 @@ public class InterfaceManager {
      * SUCCESS only, idempotent:
      * First SUCCESS per transactionId wins.
      */
-    private static List<Transaction> buildReportTransactions(
-            List<Transaction> validTxs) {
+    private static List<Transaction> buildReportTransactions(List<Transaction> validTxs) {
 
-        Map<String, Transaction> firstSuccess =
-                new LinkedHashMap<>();
+        Map<String, Transaction> firstSuccess = new LinkedHashMap<>();
 
         for (Transaction tx : validTxs) {
-            if (!"SUCCESS".equals(tx.getStatus())) continue;
-
-            firstSuccess.putIfAbsent(
-                    tx.getTransactionId(),
-                    tx
-            );
+            if (!"SUCCESS".equals(tx.getStatus())) {
+                continue;
+            }
+            firstSuccess.putIfAbsent(tx.getTransactionId(), tx);
         }
+
         return new ArrayList<>(firstSuccess.values());
     }
 
-    private static List<DuplicateGroup> buildDuplicateGroups(
-            List<Transaction> txs) {
+    private static List<DuplicateGroup> buildDuplicateGroups(List<Transaction> txs) {
 
-        Map<String, List<Transaction>> groups = new HashMap<>();
+        Map<String, List<Transaction>> grouped = new HashMap<>();
 
         for (Transaction tx : txs) {
-            if (tx.getFlagDup() != 1) continue;
+            if (tx.getFlagDup() != 1) {
+                continue;
+            }
 
-            String key =
-                    tx.getReasonForRejection() + "|" +
-                    tx.getTransactionId();
+            String key = tx.getReasonForRejection() + "|" + tx.getTransactionId();
 
-            groups.computeIfAbsent(
-                    key, k -> new ArrayList<>()
-            ).add(tx);
+            grouped.computeIfAbsent(key, k -> new ArrayList<>()).add(tx);
         }
 
         List<DuplicateGroup> result = new ArrayList<>();
 
-        for (Map.Entry<String, List<Transaction>> entry : groups.entrySet()) {
+        for (Map.Entry<String, List<Transaction>> entry : grouped.entrySet()) {
             String[] parts = entry.getKey().split("\\|", 2);
-            result.add(
-                    new DuplicateGroup(
-                            parts[0],
-                            parts[1],
-                            entry.getValue()
-                    )
-            );
+            result.add(new DuplicateGroup(parts[0], parts[1], entry.getValue()));
         }
+
         return result;
     }
 
