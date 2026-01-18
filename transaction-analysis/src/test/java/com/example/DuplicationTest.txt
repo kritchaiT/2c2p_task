@@ -1,0 +1,51 @@
+package com.example;
+
+import org.junit.jupiter.api.Test;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class DuplicationTest {
+
+    @Test
+    void shouldDetectDuplicateTransactionId() {
+
+        Transaction t1 = new Transaction(
+                "TXN-1", "REF-A", 100,
+                "USD", "SUCCESS", "2023-10-01T10:00:00Z"
+        );
+
+        Transaction t2 = new Transaction(
+                "TXN-1", "REF-A", 100,
+                "USD", "SUCCESS", "2023-10-01T10:05:00Z"
+        );
+
+        List<Transaction> txs = List.of(t1, t2);
+
+        DuplicationIden.identifyDup(txs);
+
+        assertEquals(1, t1.getFlagDup());
+        assertEquals(1, t2.getFlagDup());
+    }
+
+    @Test
+    void shouldDetectMerchantAmountSameDayDup() {
+
+        Transaction t1 = new Transaction(
+                "TXN-2", "REF-X", 200,
+                "USD", "SUCCESS", "2023-10-02T08:00:00Z"
+        );
+
+        Transaction t2 = new Transaction(
+                "TXN-3", "REF-X", 200,
+                "USD", "FAILED", "2023-10-02T18:00:00Z"
+        );
+
+        List<Transaction> txs = List.of(t1, t2);
+
+        DuplicationIden.identifyDup(txs);
+
+        assertEquals(1, t1.getFlagDup());
+        assertEquals(1, t2.getFlagDup());
+    }
+}

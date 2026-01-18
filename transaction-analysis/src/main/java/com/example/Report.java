@@ -1,47 +1,39 @@
 package com.example;
 
+import java.util.List;
+import java.util.Map;
+
 public class Report {
-    private String reportId;
-    private String reportName;
-    private String reportType;
-    private String reportDate;
 
-    public Report(String reportId, String reportName, String reportType, String reportDate) {
-        this.reportId = reportId;
-        this.reportName = reportName;
-        this.reportType = reportType;
-        this.reportDate = reportDate;
-    }
+    // Overall counts
+    public int totalRecords;
+    public int validRecords;
+    public int invalidRecords;
 
-    public String getReportId() {
-        return reportId;
-    }
+    // Validation
+    public Map<String, Integer> invalidBreakdown;
 
-    public void setReportId(String reportId) {
-        this.reportId = reportId;
-    }
+    // Applied (idempotent) SUCCESS only
+    public int successAppliedRecords;
 
-    public String getReportName() {
-        return reportName;
-    }
+    // Status summary (usually only SUCCESS)
+    public Map<String, Integer> statusCounts;
 
-    public void setReportName(String reportName) {
-        this.reportName = reportName;
-    }
+    // SUCCESS amount statistics
+    public AmountStats successAmountStats;
 
-    public String getReportType() {
-        return reportType;
-    }
+    // Duplicate section
+    public DuplicateSection duplicates;
 
-    public void setReportType(String reportType) {
-        this.reportType = reportType;
-    }
+    // ----------------------------------------------------
 
-    public String getReportDate() {
-        return reportDate;
-    }
+    public static class DuplicateSection {
+        public int duplicateGroupCount;
+        public List<DuplicateGroup> groups;
 
-    public void setReportDate(String reportDate) {
-        this.reportDate = reportDate;
+        public DuplicateSection(int count, List<DuplicateGroup> groups) {
+            this.duplicateGroupCount = count;
+            this.groups = groups;
+        }
     }
 }

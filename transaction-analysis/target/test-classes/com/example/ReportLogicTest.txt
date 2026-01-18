@@ -1,0 +1,46 @@
+package com.example;
+
+import org.junit.jupiter.api.Test;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import java.lang.reflect.Method;
+
+class ReportLogicTest {
+
+    @Test
+    void shouldApplySuccessOnlyOncePerTransactionId() throws Exception {
+
+        Transaction t1 = new Transaction(
+                "TXN-100", "REF-1", 100,
+                "USD", "SUCCESS", "2023-10-01T10:00:00Z"
+        );
+
+        Transaction t2 = new Transaction(
+                "TXN-100", "REF-1", 100,
+                "USD", "SUCCESS", "2023-10-01T10:05:00Z"
+        );
+
+        Transaction t3 = new Transaction(
+                "TXN-101", "REF-2", 50,
+                "USD", "FAILED", "2023-10-01T11:00:00Z"
+        );
+
+        List<Transaction> valid = List.of(t1, t2, t3);
+
+        // Access private method via reflection (acceptable for unit test)
+        Method method =
+                InterfaceManager.class.getDeclaredMethod(
+                        "buildReportTransactions", List.class
+                );
+
+        method.setAccessible(true);
+
+        @SuppressWarnings("unchecked")
+        List<Transaction> result =
+                (List<Transaction>) method.invoke(null, valid);
+
+        assertEquals(1, result.size());
+        assertEquals("TXN-100", result.get(0).getTransactionId());
+    }
+}
