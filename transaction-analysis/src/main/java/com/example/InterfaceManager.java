@@ -3,6 +3,7 @@ package com.example;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,11 +26,11 @@ public class InterfaceManager {
         if (args.length == 0) return true;
 
         switch (args[0].toLowerCase()) {
-
+            // load
             case "load":
                 loadTransactions();
                 break;
-
+            // show
             case "show":
                 if (transactions.isEmpty()) {
                     System.out.println("No data loaded. Use 'load' first.");
@@ -51,19 +52,23 @@ public class InterfaceManager {
                     case "invalid":
                         DisplayData.displayData(validationResult.get("invalid"));
                         break;
+                    case "dup":
+                        DuplicationIden.identifyDup(transactions);
+                        DisplayData.displayData(transactions.stream().filter(t -> t.getFlagDup() == 1).collect(Collectors.toList()));
+                        break;
                     default:
                         System.out.println("Invalid show option.");
                 }
                 break;
-
+            // clear
             case "clear":
                 clearBash();
                 break;
-
+            // help
             case "help":
                 printHelp();
                 break;
-
+            // end
             case "end":
                 System.out.println("Exiting Interface Manager.");
                 return false; // stop loop
@@ -79,6 +84,7 @@ public class InterfaceManager {
         String filePath = "transaction.json";
 
         try {
+            // ***Jackson Object Mapper***
             ObjectMapper mapper = new ObjectMapper();
             transactions = mapper.readValue(
                     new File(filePath),
@@ -100,6 +106,7 @@ public class InterfaceManager {
         System.out.println("show all           - Display all transactions");
         System.out.println("show valid         - Display valid transactions");
         System.out.println("show invalid       - Display invalid transactions");
+        System.out.println("show dup           - Display duplicate transactions");
         System.out.println("clear              - Clear the console");
         System.out.println("help               - Show this help");
         System.out.println("end                - Exit the program");

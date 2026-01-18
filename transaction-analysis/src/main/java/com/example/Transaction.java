@@ -8,6 +8,7 @@ public class Transaction {
     private String currency;
     private String status;
     private String createdAtUtc;
+    private String ReasonForRejection;
 
     // initialize flags
     private int flagDup = 0;
@@ -22,6 +23,7 @@ public class Transaction {
     public String getCreatedAtUtc() { return createdAtUtc; }
     public int getFlagDup() { return flagDup; }
     public int getFlagIncompleted() { return flagIncompleted; }
+    public String getReasonForRejection() { return ReasonForRejection; }
 
     // Setters
     public void setTransactionId(String transactionId) { this.transactionId = transactionId; }
@@ -30,6 +32,9 @@ public class Transaction {
     public void setCurrency(String currency) { this.currency = currency; }
     public void setStatus(String status) { this.status = status; }
     public void setCreatedAtUtc(String createdAtUtc) { this.createdAtUtc = createdAtUtc; }
+
+    // Setter for ReasonForRejection --> Additional field
+    public void setReasonForRejection(String reason) { this.ReasonForRejection = reason; }
 
     public void flagDuplicate() {
         this.flagDup = 1;
