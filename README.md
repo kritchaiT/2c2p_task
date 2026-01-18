@@ -48,8 +48,8 @@ com.example.App --input transaction.json --output report.json
 --------------------------------------------------------------------------------
 
 ## For your easy insert testcase
-- Replace the transaction.json inside the `/workspaces/2c2p_task/transaction-analysis` path so my program will be able to see the dataset
-- report.json is where the result is
+- Replace the transaction.json inside the `/workspaces/2c2p_task/transaction.json` path so my program will be able to see the dataset
+- report.json (`/workspaces/2c2p_task/report.json`) is where the result is
 - pom.xml was to config the mvn environment
 
 --------------------------------------------------------------------------------
