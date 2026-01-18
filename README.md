@@ -1,5 +1,7 @@
 # 2c2p_task
 
+Thank you for your time and consideration. I would like to submit the assessment task received from your email.
+
 --------------------------------------------------------------------------------
 ### Proclaimation
 
@@ -49,3 +51,9 @@ com.example.App --input transaction.json --output report.json
 - Replace the transaction.json inside the `/workspaces/2c2p_task/transaction-analysis` path so my program will be able to see the dataset
 - report.json is where the result is
 - pom.xml was to config the mvn environment
+
+--------------------------------------------------------------------------------
+
+In case you have any question, plese feel free to contact me via email and mobilephone (+66 854980608),
+Best regards
+Kritchai.
