@@ -119,9 +119,11 @@ public class InterfaceManager {
     // LOAD
     // =====================================================
 
-    private static void loadTransactions() {
+    public static void loadTransactions() {
+        loadTransactions("transaction.json");
+    }
 
-        String filePath = "transaction.json";
+    public static void loadTransactions(String filePath) {
 
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -294,6 +296,16 @@ public class InterfaceManager {
                     .waitFor();
         } catch (Exception e) {
             System.out.println("Could not clear screen.");
+        }
+    }
+
+    public static void runBatch(String inputFile, String outputFile) {
+
+        try {
+            loadTransactions(inputFile);
+            generateReport(outputFile);
+        } catch (Exception e) {
+            System.err.println("Batch execution failed: " + e.getMessage());
         }
     }
 }

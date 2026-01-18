@@ -1,0 +1,260 @@
+{
+  "totalRecords" : 28,
+  "validRecords" : 21,
+  "invalidRecords" : 7,
+  "invalidBreakdown" : {
+    "Duplicated Txn ID" : 4,
+    "UNKNOWN" : 3
+  },
+  "statusCounts" : {
+    "SUCCESS" : 9
+  },
+  "successAmountStats" : {
+    "min" : 0.0,
+    "max" : 250.0,
+    "avg" : 135.05555555555554
+  },
+  "duplicates" : {
+    "duplicateGroupCount" : 10,
+    "duplicateRecordCount" : 18,
+    "groups" : [ {
+      "rule" : "Duplicated MERCHANT_AMOUNT_DAY",
+      "key" : "TXN-009",
+      "transactions" : [ {
+        "transactionId" : "TXN-009",
+        "merchantRef" : "DUP-REF",
+        "amount" : 200.0,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-02T15:30:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated MERCHANT_AMOUNT_DAY"
+      } ]
+    }, {
+      "rule" : "Duplicated MERCHANT_AMOUNT_DAY",
+      "key" : "TXN-007",
+      "transactions" : [ {
+        "transactionId" : "TXN-007",
+        "merchantRef" : "DUP-MERCHANT",
+        "amount" : 200.0,
+        "currency" : "USD",
+        "status" : "FAILED",
+        "createdAtUtc" : "2023-10-03T18:30:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated MERCHANT_AMOUNT_DAY"
+      } ]
+    }, {
+      "rule" : "Duplicated Txn ID",
+      "key" : "TXN-008",
+      "transactions" : [ {
+        "transactionId" : "TXN-008",
+        "merchantRef" : "DUP-REF",
+        "amount" : 200.0,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-02T09:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      }, {
+        "transactionId" : "TXN-008",
+        "merchantRef" : "IDEMP-REF",
+        "amount" : 300.0,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-04T09:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      }, {
+        "transactionId" : "TXN-008",
+        "merchantRef" : "IDEMP-REF",
+        "amount" : 300.0,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-04T09:05:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      } ]
+    }, {
+      "rule" : "Duplicated Txn ID",
+      "key" : "TXN-003",
+      "transactions" : [ {
+        "transactionId" : "TXN-003",
+        "merchantRef" : "REF-C",
+        "amount" : 75.0,
+        "currency" : "GBP",
+        "status" : "PENDING",
+        "createdAtUtc" : "2023-10-01T12:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      } ]
+    }, {
+      "rule" : "Duplicated Txn ID",
+      "key" : "TXN-004",
+      "transactions" : [ {
+        "transactionId" : "TXN-004",
+        "merchantRef" : "REF-D",
+        "amount" : 25.0,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-02T09:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      } ]
+    }, {
+      "rule" : "Duplicated Txn ID",
+      "key" : "TXN-005",
+      "transactions" : [ {
+        "transactionId" : "TXN-005",
+        "merchantRef" : "REF-E",
+        "amount" : 75.0,
+        "currency" : "CAD",
+        "status" : "COMPLETED",
+        "createdAtUtc" : "2023-10-01T14:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      }, {
+        "transactionId" : "TXN-005",
+        "merchantRef" : "REF-E",
+        "amount" : 250.0,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-02T10:15:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      } ]
+    }, {
+      "rule" : "Duplicated Txn ID",
+      "key" : "TXN-006",
+      "transactions" : [ {
+        "transactionId" : "TXN-006",
+        "merchantRef" : "REF-F",
+        "amount" : 15.0,
+        "currency" : "JPY",
+        "status" : "PENDING",
+        "createdAtUtc" : "2023-13-01T15:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      }, {
+        "transactionId" : "TXN-006",
+        "merchantRef" : "DUP-MERCHANT",
+        "amount" : 200.0,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-03T08:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      } ]
+    }, {
+      "rule" : "Invalid createdAtUtc",
+      "key" : "TXN-013",
+      "transactions" : [ {
+        "transactionId" : "TXN-013",
+        "merchantRef" : "BAD-DATE",
+        "amount" : 40.0,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-13-01T15:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Invalid createdAtUtc"
+      } ]
+    }, {
+      "rule" : "Duplicated Txn ID",
+      "key" : "TXN-001",
+      "transactions" : [ {
+        "transactionId" : "TXN-001",
+        "merchantRef" : "REF-A",
+        "amount" : 100.5,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-01T10:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      }, {
+        "transactionId" : "TXN-001",
+        "merchantRef" : "REF-A",
+        "amount" : 100.5,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-01T10:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      }, {
+        "transactionId" : "TXN-001",
+        "merchantRef" : "REF-A",
+        "amount" : 100.5,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-01T10:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      }, {
+        "transactionId" : "TXN-001",
+        "merchantRef" : "REF-A",
+        "amount" : 100.5,
+        "currency" : "USD",
+        "status" : "SUCCESS",
+        "createdAtUtc" : "2023-10-01T10:05:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      } ]
+    }, {
+      "rule" : "Duplicated Txn ID",
+      "key" : "TXN-002",
+      "transactions" : [ {
+        "transactionId" : "TXN-002",
+        "merchantRef" : "REF-B",
+        "amount" : 50.0,
+        "currency" : "EUR",
+        "status" : "FAILED",
+        "createdAtUtc" : "2023-10-01T11:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      }, {
+        "transactionId" : "TXN-002",
+        "merchantRef" : "REF-B",
+        "amount" : 50.0,
+        "currency" : "EUR",
+        "status" : "FAILED",
+        "createdAtUtc" : "2023-10-01T11:00:00Z",
+        "flagDup" : 1,
+        "flagIncompleted" : 0,
+        "empty" : false,
+        "reasonForRejection" : "Duplicated Txn ID"
+      } ]
+    } ]
+  }
+}
